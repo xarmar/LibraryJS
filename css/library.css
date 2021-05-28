@@ -1,8 +1,22 @@
+/* PALLATE 
+#586A6A - Deep Space Sparkle
+#818D92 - Light Slate Grey
+#B9A394 - Grullo
+#D4C5C7- Black Shadows
+#DAD4EF - Languid Lavender
+*/
+
+
 body {
-    background-color: khaki;
+    background-color: #DAD4EF;
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+h1 {
+    background-color: #B9A394;
+    padding: 5px 13px 5px 13px;
 }
 
 #generalContainer {
@@ -19,13 +33,13 @@ body {
     flex-direction: column;
     text-align: center;
     width: 20%;;
-    background-color: green;
-    height: 100vh;
+    background-color: #B9A394;
+    height: 15em;
 }
 
 #inputContainer p {
-    background-color: yellow;
-    width: 80%;
+    background-color: #DAD4EF;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,29 +51,60 @@ body {
 }
 
 #inputContainer #addBookButton {
+    background-color: #ffe8d6;
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
+}
+
+#addBookButton:hover {
+    cursor: pointer;
+    background-color: #D4C5C7;
 }
 
 /* Div where book list will be displayed */
 
 #libraryContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: auto;
     margin-left: 2%;
-    background-color: orange;
     width: 80%;
 }
 
 .bookExample {
-    margin-top: 4%;
-    margin-bottom: 1%;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-bottom: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
     text-align: center;
-    background-color: tomato;
+    background-color: #B9A394;
+    height: 15em;
+}
+
+.bookExample p {
+    font-size: 100%
+}
+
+.deleteBook {
+    margin-top: 10%;
+    margin-bottom: 5%;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+}
+
+.deleteBook:hover {
+    color: darkred;
+    cursor: pointer;
+    background-color: #ffe8d6;
+    transform: scale(1.3);
+}
+
+.title {
+    text-decoration: underline;
 }
 
 .author {
@@ -67,12 +112,19 @@ body {
 }
 
 .readStatus {
+    margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
     padding: 4px;
-    background-color: yellow;
+    background-color: #ffe8d6;
 }
+
+.readStatus:hover {
+    cursor: pointer;
+    background-color: #DAD4EF;
+}
+
 
 /* center all placeholders */
 ::-webkit-input-placeholder {
@@ -87,7 +139,7 @@ body {
     position: fixed;
     height: 5%;
     width: 99%;
-    background-color:#FFFFFF; 
+    background-color:white; 
     text-align: center;
     bottom: 0;
 }
