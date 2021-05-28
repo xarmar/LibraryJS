@@ -51,6 +51,7 @@ h1 {
 }
 
 #inputContainer #addBookButton {
+    width: 95%;
     background-color: #ffe8d6;
     margin-top: 10px;
     margin-left: auto;
@@ -66,7 +67,7 @@ h1 {
 
 #libraryContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     grid-template-rows: auto;
     margin-left: 2%;
     width: 80%;
@@ -74,7 +75,7 @@ h1 {
 
 .bookExample {
     margin-bottom: 5%;
-    margin-left: 2%;
+    margin-left: 2%;    
     margin-right: 2%;
     text-align: center;
     background-color: #B9A394;
