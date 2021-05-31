@@ -54,7 +54,7 @@ class Book {
         pagesP.innerText = pages;
         readStatusP.innerText = readStatus;
 
-        // Give newDiv element a unique Id which = Title and Author)
+        // Give newDiv element a unique Id which === Title + Author
         newDiv.id = title.split(" ").join("") + author.split(" ").join("");
     
         // Append <p> elemnts to the Div
@@ -116,17 +116,28 @@ function deleteBookFromArray(title, author) {
     for (let i = 0; i < library.length; i++) {
         // if book has same title and same author, it's delete from Array
         if (library[i].title === title && library[i].author === author) {
-            library.splice(i, 1)
+            library.splice(i, 1);
         }
     }
 }
 
-// Delete bookDiv when user clicks "X"
-
 // delete bookDiv node and delete object from array
 function deleteBook() {
     let bookDiv = this.parentNode;
-    console.log(bookDiv);
+    let childOfBookDiv = bookDiv.childNodes;
+    let title;
+    let author;
+    for (child of childOfBookDiv) {
+        if(child.className === "title") {
+            title = child.outerText;
+
+        }
+        if(child.className === "author") {
+            author = child.outerText;
+        }
+    }
+    deleteBookFromArray(title, author);
+    // remove bookDiv from DOM
     bookDiv.remove();   
 }
 
