@@ -8,6 +8,7 @@ const authorInput = document.querySelector("#authorInput");
 const pagesInput = document.querySelector("#pagesInput");
 const addBookButton = document.querySelector("#addBookButton");
 let deleteButton;
+let toggleStatusButton;
 
 
 let library = [];
@@ -18,7 +19,7 @@ class Book {
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.readStatus = "Not Finished"
+        this.readStatus = "Still Reading"
         this.id = title
     }
 
@@ -72,7 +73,13 @@ class Book {
         deleteButton.forEach(button => {
             button.addEventListener("click", deleteBook)
         });
+        // Add option to toggle ReadStatus
+        toggleStatusButton = document.querySelectorAll(".readStatus");
+        toggleStatusButton.forEach(button => {
+            button.addEventListener("click", toggleReadStatus);
+        });
     }
+    
     addBookToLibrary () {
         library.push(this);   
     }
@@ -82,7 +89,7 @@ class Book {
 addBookButton.addEventListener("click", pushBookToArray);
 
 function pushBookToArray() {
-        if (!titleInput.value || !authorInput.value || !pagesInput.value ) {
+        if (!titleInput.value || !authorInput.value || !pagesInput.value || isNaN(pagesInput.value)) {
             return
         }
         let newBook = new Book(titleInput.value, authorInput.value, pagesInput.value);
@@ -102,6 +109,7 @@ function resetBookForm() {
     pagesInput.value = "";
 }
 
+// Functions that check and delete from library array
 function bookAlreadyInArray(title, author) { 
     for (let i = 0; i < library.length; i++) {
         // if book has same title and same author, it's already in library
@@ -124,21 +132,64 @@ function deleteBookFromArray(title, author) {
 // delete bookDiv node and delete object from array
 function deleteBook() {
     let bookDiv = this.parentNode;
-    let childOfBookDiv = bookDiv.childNodes;
-    let title;
-    let author;
-    for (child of childOfBookDiv) {
-        if(child.className === "title") {
-            title = child.outerText;
-
-        }
-        if(child.className === "author") {
-            author = child.outerText;
-        }
-    }
+    let title = getTitleOfBookDiv(bookDiv);
+    let author = getAuthorOfBookDiv(bookDiv);
     deleteBookFromArray(title, author);
     // remove bookDiv from DOM
     bookDiv.remove();   
+}
+
+function toggleReadStatus() {
+    let bookDiv = this.parentNode;
+    let title = getTitleOfBookDiv(bookDiv);
+    let author = getAuthorOfBookDiv(bookDiv);
+    if(this.textContent === "Still Reading") {
+        this.textContent = "Finished";
+        this.classList.add("finished");
+        changeBookReadStatusInTheArray(title, author);
+        
+    }
+    else {
+        this.textContent = "Still Reading";
+        this.classList.remove("finished");
+        changeBookReadStatusInTheArray(title, author);
+
+    }
+}
+
+function getTitleOfBookDiv(bookDiv) {
+    let childOfBookDiv = bookDiv.childNodes;
+    let title;
+    for (let child of childOfBookDiv) {
+        if(child.className === "title") {
+            title = child.outerText;
+            return title
+        }
+    }
+}
+
+function getAuthorOfBookDiv(bookDiv) {
+    let childOfBookDiv = bookDiv.childNodes;
+    let author;
+    for (child of childOfBookDiv) {
+        if(child.className === "author") {
+            author = child.outerText;
+            return author
+        }
+    }
+}
+
+function changeBookReadStatusInTheArray(title, author) {
+    for (let i = 0; i < library.length; i++) {
+        if (library[i].title === title && library[i].author === author) {
+            if(library[i].readStatus === "Still Reading") {
+                library[i].readStatus = "Finished";
+            }
+            else {
+                library[i].readStatus = "Still Reading";
+            }
+        }
+    }    
 }
 
 })
