@@ -126,6 +126,10 @@ h1 {
     background-color: #DAD4EF;
 }
 
+.finished {
+    border: 2px black solid;
+}
+
 
 /* center all placeholders */
 ::-webkit-input-placeholder {
