@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-const generalContainer = document.querySelector("#generalContainer");
 const libraryContainer = document.querySelector("#libraryContainer");
-const addBookButton = document.querySelector("#addBookButton");
+
+// Form constants
 const titleInput = document.querySelector("#titleInput");
 const authorInput = document.querySelector("#authorInput");
 const pagesInput = document.querySelector("#pagesInput");
+const addBookButton = document.querySelector("#addBookButton");
+let deleteButton;
+
 
 let library = [];
 
@@ -16,21 +19,19 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.readStatus = "Not Finished"
+        this.id = title
     }
 
 
-    populateLibraryContainerWithBooks() {
-        for (let book of library){
-            let title = book.title;
-            let author = book.author;
-            let pages = book.pages;
-            let readStatus = book.readStatus;
+    populateLibraryContainerWithBook() {
+        let title = this.title;
+        let author = this.author;
+        let pages = this.pages;
+        let readStatus = this.readStatus;
 
-        // have to right a function here that checks if book is already in library and returs blank
-        
         // Create Div
         let newDiv = document.createElement("div");
-        newDiv.classList.add("bookExample");
+        newDiv.classList.add("bookDiv");
     
         // Create p elements
         let deleteBookP = document.createElement("p")
@@ -39,6 +40,7 @@ class Book {
         let pagesP = document.createElement("p");
         let readStatusP = document.createElement("p")
 
+        // Add CSS to p elements
         deleteBookP.classList.add("deleteBook")
         titleP.classList.add("title");
         authorP.classList.add("author");
@@ -51,6 +53,9 @@ class Book {
         authorP.innerText = author;
         pagesP.innerText = pages;
         readStatusP.innerText = readStatus;
+
+        // Give newDiv element a unique Id which = Title and Author)
+        newDiv.id = title.split(" ").join("") + author.split(" ").join("");
     
         // Append <p> elemnts to the Div
         newDiv.appendChild(deleteBookP);
@@ -59,30 +64,21 @@ class Book {
         newDiv.appendChild(pagesP);
         newDiv.appendChild(readStatusP);
         
-        // Append div to General Container
+        // Append div to Library Container
         libraryContainer.appendChild(newDiv);
-        }
 
+        // Add option to delete book from array
+        deleteButton = document.querySelectorAll(".deleteBook");
+        deleteButton.forEach(button => {
+            button.addEventListener("click", deleteBook)
+        });
     }
-
-
     addBookToLibrary () {
         library.push(this);   
     }
-
-    sameTitle(thisBookTitle, library) {
-        for (let i = 0; i < library.length; i++) {
-            if (library[i].title === thisBookTitle) {
-                return true;
-            }
-        }
-    
-        return false;
-    }
-    
 }
 
-// Update Array and Show Books Ater Clikcing "Add Book"
+// Update Array and Show Books on libraryContainer Ater Clicking "Add Book"
 addBookButton.addEventListener("click", pushBookToArray);
 
 function pushBookToArray() {
@@ -91,17 +87,48 @@ function pushBookToArray() {
         }
         let newBook = new Book(titleInput.value, authorInput.value, pagesInput.value);
         
-        // if book by same title already exists don't add to library
-        if(!newBook.sameTitle(newBook.title, library)) {
+        // if book by same title already exists don't add to library and don't populate
+        if(!bookAlreadyInArray(newBook.title, newBook.author)) {
+            newBook.populateLibraryContainerWithBook();
             newBook.addBookToLibrary();
         }
-
-        newBook.populateLibraryContainerWithBooks();  
-        titleInput.value = "";
-        authorInput.value = "";
-        pagesInput.value = "";
+        resetBookForm();  
+        
 }
 
+function resetBookForm() {
+    titleInput.value = "";
+    authorInput.value = "";
+    pagesInput.value = "";
+}
+
+function bookAlreadyInArray(title, author) { 
+    for (let i = 0; i < library.length; i++) {
+        // if book has same title and same author, it's already in library
+        if (library[i].title === title && library[i].author === author) {
+            return true;
+        }
+    }
+    return false
+}
+
+function deleteBookFromArray(title, author) {
+    for (let i = 0; i < library.length; i++) {
+        // if book has same title and same author, it's delete from Array
+        if (library[i].title === title && library[i].author === author) {
+            library.splice(i, 1)
+        }
+    }
+}
+
+// Delete bookDiv when user clicks "X"
+
+// delete bookDiv node and delete object from array
+function deleteBook() {
+    let bookDiv = this.parentNode;
+    console.log(bookDiv);
+    bookDiv.remove();   
+}
 
 })
 
