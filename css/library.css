@@ -35,7 +35,7 @@ h1 {
     text-align: center;
     width: 20%;;
     background-color: #B9A394;
-    height: 15em;
+    height: 14em;
 }
 
 #inputContainer p {
@@ -48,11 +48,13 @@ h1 {
 #inputContainer input {
     width: 80%;
     margin-top:10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 #inputContainer #addBookButton {
+    padding: 3px;
     width: 95%;
+    font-size: 85%;
     background-color: #ffe8d6;
     margin-top: 10px;
     margin-left: auto;
@@ -80,7 +82,7 @@ h1 {
     margin-right: 2%;
     text-align: center;
     background-color: #B9A394;
-    height: 15em;
+    height: 14em;
 }
 
 .bookDiv p {
