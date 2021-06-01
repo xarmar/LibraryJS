@@ -52,9 +52,10 @@ h1 {
 }
 
 #inputContainer #addBookButton {
-    padding: 0.5px;
-    width: 95%;
-    font-size: 85%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    width: 90%;
+    font-size: 70%;
     background-color: #ffe8d6;
     margin-top: 10px;
     margin-left: auto;
